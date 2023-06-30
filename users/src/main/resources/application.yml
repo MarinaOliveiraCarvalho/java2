@@ -1,0 +1,19 @@
+server:
+  port: 5055
+  #port: ${PORT:0}
+spring:
+  application:
+    name: users
+
+eureka:
+  instance: instance-id=${spring:application:name}:${spring:application:instance_id:${random:value}}
+  client:
+    service-url:
+      defaultzone: http://localhost:8761
+
+
+#
+#flyway:
+#  user: databaseUser
+#  password: databasePassword
+#  schemas: schemaName

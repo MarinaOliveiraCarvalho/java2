@@ -1,0 +1,70 @@
+server:
+  port: 8765
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka    
+spring:
+  application:
+    name: api-gateway
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true
+          #lower-case-service-id: true
+#      routes:
+#      - id: resell-bff
+#        uri: lb://resell-bff
+#        predicates:
+#        - Path=/resell-bff/**
+#      - id: resell-users
+#        uri: lb://resell-users
+#        predicates:
+#        - Path=/resell-users/**
+#      - id: resell-aouth
+#        uri: lb://resell-aouth
+#        predicates:
+#        - Path=/resell-aouth/**
+#      - id: openapi
+#        uri: lb://api-gateway
+#        predicates:
+#        - Path=/v3/api-docs/**
+#        filters:
+#        - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+#        sleuth:
+#          sampler:
+#            probability: 1.0
+
+zuul:
+  sensitive-headers: Cookie,Set-Cookie,Authorization
+  routes:
+    resell-oauth:
+      service-id: resell-oauth
+      path: /resell-oauth/**
+      sensitive-headers: 'Cookie,Set-Cookie'
+    resell-users:
+      service-id: resell-users
+      path: /resell-users/**
+    resell-person:
+      service-id: resell-person
+      path: /resell-person/**
+      sensitiveHeaders: 'Cookie,Set-Cookie'
+    demo:
+      service-id: demo
+      path: /demo/**
+      sensitiveHeaders: 'Cookie,Set-Cookie'
+      #sensitive-headers:
+      #  - Cookie,Set-Cookie,Authorization
+      #customSensitiveHeaders: false
+  add-host-header: true
+  add-host-cookie: true
+  host:
+    connect-timeout-millis: 5000000
+    socket-timeout-millis: 5000000
+
+jwt:
+  secret: "MY-SECRET-KEY"
+  client:
+    name: "API_NAME_ACCESS"
+    secret: "API_SECRET_ACCESS"
