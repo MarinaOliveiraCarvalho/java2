@@ -39,20 +39,20 @@ spring:
 zuul:
   sensitive-headers: Cookie,Set-Cookie,Authorization
   routes:
-    resell-oauth:
-      service-id: resell-oauth
-      path: /resell-oauth/**
+    oauth:
+      service-id: oauth
+      path: /oauth/**
       sensitive-headers: 'Cookie,Set-Cookie'
-    resell-users:
-      service-id: resell-users
-      path: /resell-users/**
+    users:
+      service-id: users
+      path: /users/**
     resell-person:
       service-id: resell-person
       path: /resell-person/**
       sensitiveHeaders: 'Cookie,Set-Cookie'
-    demo:
-      service-id: demo
-      path: /demo/**
+    todo:
+      service-id: todo
+      path: /todo/**
       sensitiveHeaders: 'Cookie,Set-Cookie'
       #sensitive-headers:
       #  - Cookie,Set-Cookie,Authorization

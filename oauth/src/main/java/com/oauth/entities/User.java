@@ -1,4 +1,4 @@
-package com.resell.oauth.entities;
+package com.oauth.entities;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,12 +8,11 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class User implements UserDetails, Serializable {
-	private static final long serialVersionUID = 1L;
-
-	private Long id;
+	private UUID id;
 	private String name;
 	private String email;
 	private String password;
@@ -22,7 +21,7 @@ public class User implements UserDetails, Serializable {
 	public User() {
 	}
 
-	public User(Long id, String name, String email, String password) {
+	public User(UUID id, String name, String email, String password) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -30,11 +29,11 @@ public class User implements UserDetails, Serializable {
 		this.password = password;
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 

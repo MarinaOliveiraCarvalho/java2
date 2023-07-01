@@ -16,7 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
 @Entity
 @Table(name = "TB_USER", schema = "users")
 public class User implements Serializable {

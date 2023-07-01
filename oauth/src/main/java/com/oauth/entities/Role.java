@@ -1,4 +1,4 @@
-package com.resell.oauth.entities;
+package com.oauth.entities;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.resell.oauth.config;
+package com.oauth.config;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

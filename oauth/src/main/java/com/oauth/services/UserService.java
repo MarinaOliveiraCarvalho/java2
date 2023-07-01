@@ -1,7 +1,7 @@
-package com.resell.oauth.services;
+package com.oauth.services;
 
-import com.resell.oauth.entities.User;
-import com.resell.oauth.feignclients.UserFeignClient;
+import com.oauth.feignclients.UserFeignClient;
+import com.oauth.entities.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,4 +1,4 @@
-package com.resell.oauth.config;
+package com.oauth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -25,7 +25,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private JwtTokenStore tokenStore;
 
-    private static final String[] PUBLIC = {  "/resell-users/users/**", "/oauth/**"  };
+    private static final String[] PUBLIC = {  "/users/**", "/oauth/**" , "/actuator/**"  };
 
 //    private static final String[] OPERATOR = { "/resell-users/users/**", };
 

@@ -1,16 +1,14 @@
-package com.resell.oauth.resources;
+package com.oauth.resources;
 
-import com.resell.oauth.dto.UserTokenDTO;
-import com.resell.oauth.entities.User;
-import com.resell.oauth.services.UserService;
+import com.oauth.dto.UserTokenDTO;
+import com.oauth.entities.User;
+import com.oauth.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")

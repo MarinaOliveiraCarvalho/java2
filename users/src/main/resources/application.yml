@@ -10,10 +10,3 @@ eureka:
   client:
     service-url:
       defaultzone: http://localhost:8761
-
-
-#
-#flyway:
-#  user: databaseUser
-#  password: databasePassword
-#  schemas: schemaName

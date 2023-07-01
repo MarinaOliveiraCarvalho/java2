@@ -1,13 +1,12 @@
-package com.resell.oauth.dto;
+package com.oauth.dto;
 
-import com.resell.oauth.entities.Role;
-import com.resell.oauth.entities.User;
+import com.oauth.entities.Role;
 import lombok.*;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,7 +17,7 @@ public class UserTokenDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private UUID id;
     private String name;
     private String email;
     private String password;
