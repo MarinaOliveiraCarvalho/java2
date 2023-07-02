@@ -26,8 +26,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     private JwtTokenStore tokenStore;
 
     private static final String[] PUBLIC = { "/oauth/**", "/actuator/**",
-            "/users/actuator/**", "/users/swagger-ui/**", "/users/swagger-ui/index.html", "/users/swagger-resources/**",
-            "/users/v2/api-docs", "/users/webjars/**"  };
+            "/todo/actuator/**", "/todo/swagger-ui/**", "/todo/swagger-ui/index.html", "/todo/swagger-resources/**",
+            "/todo/v2/api-docs", "/todo/webjars/**"  };
 
     private static final String[] OPERATOR = {  "/users/**", "/todo/**" };
 
