@@ -46,10 +46,6 @@ zuul:
     users:
       service-id: users
       path: /users/**
-    resell-person:
-      service-id: resell-person
-      path: /resell-person/**
-      sensitiveHeaders: 'Cookie,Set-Cookie'
     todo:
       service-id: todo
       path: /todo/**

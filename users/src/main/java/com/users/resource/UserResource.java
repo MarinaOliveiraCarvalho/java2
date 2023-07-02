@@ -1,7 +1,7 @@
-package com.users.controllers;
+package com.users.resource;
 
+import com.users.service.LoginService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +18,13 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequestMapping(value = "/users")
-public class UserControllers {
+public class UserResource {
 	
 	@Autowired
 	private UserRepository repository;
+
+	@Autowired
+	private LoginService loginService;
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> findById(@PathVariable UUID id) {
@@ -32,8 +35,8 @@ public class UserControllers {
 	
 	@GetMapping(value = "/search")
 	public ResponseEntity<User> findByEmail(@RequestParam String email) {
-		log.info("search");
-		User obj = repository.findByEmail(email);
-		return ResponseEntity.ok(obj);
+		log.info("search email");
+		//User obj = repository.findByEmail(email);
+		return ResponseEntity.ok(loginService.findUserByEmail(email));
 	}
 }

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TB_ROLE", schema = "users")
+@Table(name = "TB_ROLE", schema = "todo")
 public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 

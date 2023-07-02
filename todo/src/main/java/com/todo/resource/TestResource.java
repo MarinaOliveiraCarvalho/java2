@@ -1,4 +1,4 @@
-package com.todo.controllers;
+package com.todo.resource;
 
 import com.todo.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/test")
-public class TestController {
+public class TestResource {
 
     @Autowired
     TestService testService;

@@ -1,23 +1,17 @@
 package com.users.entities;
 
+import lombok.Builder;
+
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 @Entity
-@Table(name = "TB_USER", schema = "users")
+@Table(name = "TB_USER", schema = "todo")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +27,7 @@ public class User implements Serializable {
 	private String password;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "TB_USER_ROLE",  schema = "users",
+	@JoinTable(name = "TB_USER_ROLE",  schema = "todo",
 		joinColumns = @JoinColumn(name = "user_id"),
 		inverseJoinColumns = @JoinColumn(name = "role_id")			
 	)
@@ -48,6 +42,20 @@ public class User implements Serializable {
 		this.name = name;
 		this.email = email;
 		this.password = password;
+	}
+
+	public User(String name, String email, String password) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.roles = this.defaultRolesNewUser();
+	}
+
+	private HashSet<Role> defaultRolesNewUser(){
+		HashSet<Role> roles = new HashSet<Role>();
+		roles.add(new Role(1l , "ROLE_OPERATOR"));
+		return roles;
 	}
 
 	public UUID getId() {

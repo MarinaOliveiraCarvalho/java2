@@ -1,4 +1,4 @@
-package com.todo.controllers;
+package com.todo.resource;
 
 import com.todo.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;

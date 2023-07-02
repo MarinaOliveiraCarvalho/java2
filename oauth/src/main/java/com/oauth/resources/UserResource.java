@@ -3,13 +3,18 @@ package com.oauth.resources;
 import com.oauth.dto.UserTokenDTO;
 import com.oauth.entities.User;
 import com.oauth.services.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
+@Slf4j
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
@@ -28,7 +33,7 @@ public class UserResource {
         }
     }
 
-    @GetMapping(value = "/teste")
+    @GetMapping(value = "/test")
     public ResponseEntity findByEmail() {
         try {
             return ResponseEntity.ok().build();
@@ -50,6 +55,4 @@ public class UserResource {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
-
 }
