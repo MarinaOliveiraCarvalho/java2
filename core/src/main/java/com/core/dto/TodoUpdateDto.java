@@ -2,9 +2,9 @@ package com.core.dto;
 
 
 import com.core.entities.Task;
-import com.core.entities.Todo;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -14,12 +14,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TodoDto {
+public class TodoUpdateDto {
 
-    private UUID id;
-    private UUID userId;
+    @NotBlank
+    private String id;
+    @NotBlank
     private String title;
-    private List<Task> task;
-    private Date createdDate;
-    private Date lastUpdatedDate;
 }

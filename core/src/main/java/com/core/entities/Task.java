@@ -39,12 +39,10 @@ public class Task implements Serializable {
     private Todo todo;
 
     @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date", nullable = false)
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_updated_date", nullable = false)
-    private Date lastUpdatedDate;
+    private LocalDateTime lastUpdatedDate;
 }
