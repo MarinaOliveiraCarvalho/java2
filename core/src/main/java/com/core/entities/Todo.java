@@ -18,13 +18,13 @@ import java.util.UUID;
 @Builder
 @Entity
 @Table(schema = "todo", name = "TB_TODO")
-public class Todo implements Serializable {
+public class Todo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -32,7 +32,7 @@ public class Todo implements Serializable {
     @Column(nullable = false)
     private String title;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "todo")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "todo")
     private List<Task> task;
 
     @CreatedDate

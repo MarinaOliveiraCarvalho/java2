@@ -1,5 +1,9 @@
 package com.core.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.RequiredArgsConstructor;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,10 +11,10 @@ import java.util.UUID;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 @Entity
 @Table(name = "TB_USER", schema = "todo")
 public class User implements Serializable {
-	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
