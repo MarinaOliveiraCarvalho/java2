@@ -47,8 +47,8 @@ zuul:
       service-id: users
       path: /users/**
     todo:
-      service-id: todo
-      path: /todo/**
+      service-id: core
+      path: /core/**
       sensitiveHeaders: 'Cookie,Set-Cookie'
       #sensitive-headers:
       #  - Cookie,Set-Cookie,Authorization
