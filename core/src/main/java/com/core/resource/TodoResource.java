@@ -26,7 +26,6 @@ public class TodoResource {
         return ResponseEntity.ok(todoService.createNewTodo(todoDto, token));
     }
 
-
     @GetMapping(value = "/page")
     public ResponseEntity<Page<Todo>> pageFindAllTodo(
             @RequestHeader(value = "Authorization") String token,
@@ -36,13 +35,11 @@ public class TodoResource {
         return ResponseEntity.ok(todoService.findPageAllByUserTodo(token, page, linesPerPage));
     }
 
-
     @PutMapping
     public ResponseEntity<Todo> todoUpdate(@RequestHeader(value = "Authorization") String token,
                                            @RequestBody @Valid TodoUpdateDto todoDto) {
         return ResponseEntity.ok(todoService.updateTodo(token, todoDto));
     }
-
 
     //#fazer delet com marina
 }
