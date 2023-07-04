@@ -29,9 +29,8 @@ public class TodoService {
     private OauthService oauthService;
 
     public Todo createNewTodo(TodoCreateDto todoDto, String token){
+        User user = this.oauthService.getUserByToken(token);
         try {
-            User user = this.oauthService.getUserByToken(token);
-
             return todoRepository.save(Todo.builder()
                     .user(user)
                     .title(todoDto.getTitle())
@@ -41,14 +40,13 @@ public class TodoService {
         }catch (Exception e){
             log.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "ERROR on create new Todo to User: " + token);
+                    "ERROR on create new Todo to User: " + user.getId());
         }
     }
 
     public Page<Todo> findPageAllByUserTodo(String token, Integer page, Integer linesPerPage){
+        User user = this.oauthService.getUserByToken(token);
         try {
-            User user = this.oauthService.getUserByToken(token);
-
             Pageable paging = PageRequest.of(page, linesPerPage);
             Page<Todo> todos = todoRepository.findAllByUser(user, paging);
 
@@ -60,7 +58,7 @@ public class TodoService {
         }catch (Exception e){
             log.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "ERROR on find pages of Todo this Token-User: " + token);
+                    "ERROR on find pages of Todo this Token-User: " + user.getId());
         }
     }
 
@@ -81,15 +79,18 @@ public class TodoService {
         }
     }
 
-    public Todo findOneTodoOfUser(UUID todoId, User user){
+    public Todo findOneTodoOfUser(UUID todoId, User user) throws NotFoundException{
         try {
             return todoRepository.findByIdAndUser(todoId, user).orElseThrow(
                     () -> new NotFoundException("Not Found Todo")
             );
-        }catch (Exception e){
+        }catch (NotFoundException e){
             log.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "ERROR Not found Todo in DB with id: " + todoId);
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw new RuntimeException("ERROR In found Todo in DB with id: " + todoId);
         }
     }
 }
