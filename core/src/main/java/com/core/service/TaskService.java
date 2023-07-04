@@ -1,13 +1,12 @@
 package com.core.service;
 
+import com.core.dto.TaskConclusionDto;
 import com.core.dto.TaskCreateDto;
 import com.core.dto.TaskUpdateDto;
-import com.core.dto.TodoCreateDto;
 import com.core.entities.Task;
 import com.core.entities.Todo;
 import com.core.entities.User;
 import com.core.repositories.TaskRepository;
-import com.core.repositories.TodoRepository;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +32,11 @@ public class TaskService {
 
     @Autowired
     private TodoService todoService;
+
+    @Autowired
+    private LoginService loginService;
+
+    public static final String ADMIN_EMAIL = "admin@todo.com";
 
     public Task createNewTask(TaskCreateDto taskDto, String token){
         User user = this.oauthService.getUserByToken(token);
@@ -69,6 +73,32 @@ public class TaskService {
             tasks.stream().forEach( obj -> {
                 obj.setTodo(todo);
             });
+
+            return tasks;
+        }catch (ResponseStatusException n){
+            log.error(n.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "ERROR Find task not found Todo in DB with id: " + todoId);
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "ERROR on find pages of Task this Token-User: " + user.getId());
+        }
+    }
+
+    public Page<Task> findAllPageByUserAndTaskAdmin(String token, UUID todoId, Integer page, Integer linesPerPage){
+        User user = this.oauthService.getUserByToken(token);
+        try {
+            user = loginService.findUserById(user.getId());
+            if(!user.getEmail().equals(ADMIN_EMAIL)){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "ERROR user not is admin Token-User: " + token);
+            }
+
+            Todo todo = this.todoService.findTodoByAdmin(todoId);
+
+            Pageable paging = PageRequest.of(page, linesPerPage);
+            Page<Task> tasks = taskRepository.findAllByTodo(todo, paging);
 
             return tasks;
         }catch (ResponseStatusException n){
@@ -128,6 +158,26 @@ public class TaskService {
         }catch (Exception e){
             log.error(e.getMessage());
             throw new RuntimeException("ERROR In found Task in DB with id: " + taskId);
+        }
+    }
+
+    public Task conclusionTaskOfTodo(String token, TaskConclusionDto taskConclusionDto){
+        User user = this.oauthService.getUserByToken(token);
+        try {
+            Todo todo = todoService.findOneTodoOfUser(UUID.fromString(taskConclusionDto.getTodoId()), user);
+            Task task = this.findOneTaskOfTodo(UUID.fromString(taskConclusionDto.getId()), todo);
+
+            task.setStatus(!task.isStatus());
+            task.setLastUpdatedDate(LocalDateTime.now());
+
+            return taskRepository.save(task);
+        }catch (NotFoundException e){
+            log.error(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "ERROR Not found Task in DB with id: " + taskConclusionDto.getId());
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw new RuntimeException("ERROR In set conclusion Task in DB with id: " + taskConclusionDto.getId());
         }
     }
 }

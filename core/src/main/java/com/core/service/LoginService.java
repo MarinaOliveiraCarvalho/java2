@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.UUID;
+
 import static java.util.Objects.isNull;
 
 @Slf4j
@@ -81,6 +83,18 @@ public class LoginService {
             log.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "ERROR User email not found in DB with email: " + email);
+        }
+    }
+
+    public User findUserById(UUID id){
+        try {
+            return userRepository.findById(id).orElseThrow(
+                    () -> new NotFoundException("Not Found User id")
+            );
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "ERROR User email not found in DB with id: " + id);
         }
     }
 }

@@ -1,9 +1,6 @@
 package com.core.resource;
 
-import com.core.dto.TaskCreateDto;
-import com.core.dto.TaskUpdateDto;
-import com.core.dto.TodoCreateDto;
-import com.core.dto.TodoUpdateDto;
+import com.core.dto.*;
 import com.core.entities.Task;
 import com.core.entities.Todo;
 import com.core.entities.User;
@@ -46,10 +43,29 @@ public class TaskResource {
         return ResponseEntity.ok(taskService.findAllPageByUserAndTask(token, todoId, page, linesPerPage));
     }
 
+    @GetMapping(value = "/page_all/{todoId}")
+    public ResponseEntity<Page<Task>> pageFindAllTodoAdmin(
+            @RequestHeader(value = "Authorization") String token,
+            @PathVariable UUID todoId,
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage
+    ) {
+        return ResponseEntity.ok(taskService.findAllPageByUserAndTaskAdmin(token, todoId, page, linesPerPage));
+    }
+
     @PutMapping
     public ResponseEntity<Task> taskUpdate(@RequestHeader(value = "Authorization") String token,
                                            @RequestBody @Valid TaskUpdateDto taskUpdateDto) {
         return ResponseEntity.ok(taskService.updateTask(token, taskUpdateDto));
+    }
+
+
+    @PostMapping(value = "/conclusion")
+    public ResponseEntity<Task> conclusionTask(@RequestHeader(value = "Authorization") String token,
+                                         @RequestBody @Valid TaskConclusionDto taskDto) {
+        log.info("Set conclusion for task: {}", taskDto.getId());
+
+        return ResponseEntity.ok(taskService.conclusionTaskOfTodo(token, taskDto));
     }
 
 }

@@ -28,6 +28,11 @@ public class TodoService {
     @Autowired
     private OauthService oauthService;
 
+    @Autowired
+    private LoginService loginService;
+
+    public static final String ADMIN_EMAIL = "admin@todo.com";
+
     public Todo createNewTodo(TodoCreateDto todoDto, String token){
         User user = this.oauthService.getUserByToken(token);
         try {
@@ -50,15 +55,31 @@ public class TodoService {
             Pageable paging = PageRequest.of(page, linesPerPage);
             Page<Todo> todos = todoRepository.findAllByUser(user, paging);
 
-            todos.stream().forEach( obj -> {
-                obj.setUser(user);
-            });
-
             return todos;
         }catch (Exception e){
             log.error(e.getMessage());
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "ERROR on find pages of Todo this Token-User: " + user.getId());
+        }
+    }
+
+    public Page<Todo> findPageAllTodoOfAdmin(String token, Integer page, Integer linesPerPage){
+        User user = this.oauthService.getUserByToken(token);
+        try {
+            user = loginService.findUserById(user.getId());
+            if(!user.getEmail().equals(ADMIN_EMAIL)){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "ERROR user not is admin Token-User: " + token);
+            }
+
+            Pageable paging = PageRequest.of(page, linesPerPage);
+            Page<Todo> todos = todoRepository.findAll(paging);
+
+            return todos;
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "ERROR user find all TODO not is admin Token-User: : " + user.getId());
         }
     }
 
@@ -82,6 +103,21 @@ public class TodoService {
     public Todo findOneTodoOfUser(UUID todoId, User user) throws NotFoundException{
         try {
             return todoRepository.findByIdAndUser(todoId, user).orElseThrow(
+                    () -> new NotFoundException("Not Found Todo")
+            );
+        }catch (NotFoundException e){
+            log.error(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "ERROR Not found Todo in DB with id: " + todoId);
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw new RuntimeException("ERROR In found Todo in DB with id: " + todoId);
+        }
+    }
+
+    public Todo findTodoByAdmin(UUID todoId) throws NotFoundException{
+        try {
+            return todoRepository.findById(todoId).orElseThrow(
                     () -> new NotFoundException("Not Found Todo")
             );
         }catch (NotFoundException e){

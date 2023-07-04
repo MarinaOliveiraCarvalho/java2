@@ -35,6 +35,15 @@ public class TodoResource {
         return ResponseEntity.ok(todoService.findPageAllByUserTodo(token, page, linesPerPage));
     }
 
+    @GetMapping(value = "/page_all")
+    public ResponseEntity<Page<Todo>> pageFindAllTodoAdmin(
+            @RequestHeader(value = "Authorization") String token,
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage
+    ) {
+        return ResponseEntity.ok(todoService.findPageAllTodoOfAdmin(token, page, linesPerPage));
+    }
+
     @PutMapping
     public ResponseEntity<Todo> todoUpdate(@RequestHeader(value = "Authorization") String token,
                                            @RequestBody @Valid TodoUpdateDto todoDto) {
