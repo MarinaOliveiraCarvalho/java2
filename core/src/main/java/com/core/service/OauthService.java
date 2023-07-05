@@ -3,19 +3,19 @@ package com.core.service;
 import com.core.dto.oauth.UserTokenDTO;
 import com.core.entities.User;
 import com.core.integration.OauthIntegration;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-@RequiredArgsConstructor
 @Slf4j
 @Service
 public class OauthService {
 
-    private final OauthIntegration oauthIntegration;
+    @Autowired
+    private OauthIntegration oauthIntegration;
 
     public UserTokenDTO getUserData(String token){
         try {

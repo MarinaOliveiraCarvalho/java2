@@ -1,8 +1,8 @@
 server:
-  port: 5055
-  error:
+#  port: 5055
+#  error:
 #    include-stacktrace: NEVER
-  #port: ${PORT:0}
+#  port: ${PORT:5055}
 spring:
   application:
     name: core
