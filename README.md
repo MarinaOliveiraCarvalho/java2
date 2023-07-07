@@ -23,13 +23,13 @@ the ports listed below must not be used for the application to deploy correctly
 
 ## after creating the img system up online in average 3 minutes:
 
-after uploading the images, two default emails will be produced to access the application
-	the admin:
-	email= admin@todo.com
-	password = 123456
-	for user:
-	email= test@todo.com
-	password = 123456
+after uploading the images, two default emails will be produced to access the application <br />
+	the admin: <br />
+	email= admin@todo.com <br />
+	password = 123456 <br />
+	for user: <br />
+	email= test@todo.com <br />
+	password = 123456 <br />
 
 ## Document of system is Swagger in localhots 8765
 
