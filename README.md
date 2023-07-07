@@ -31,14 +31,14 @@ for user:
 email= test@todo.com
 password = 123456
 
-## Document of system is  [Swagger] http://localhost:8765/core/swagger-ui/index.html in localhots 8765
+## Document of system is Swagger in localhots 8765
 
 go after up system
-http://localhost:8765/core/swagger-ui/index.html
+[Swagger](http://localhost:8765/core/swagger-ui/index.html)
 
 or in 
 
-http://localhost:5055/swagger-ui/index.html#/
+[Swagger direct](http://localhost:5055/swagger-ui/index.html#/)
 
 
 ## Further help
