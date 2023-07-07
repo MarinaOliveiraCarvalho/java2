@@ -10,15 +10,15 @@ docker-compose up -d
 
 ## Attention ports used by the system
 
-the ports listed below must not be used for the application to deploy correctly
-
-8765 - gateway
-5055 - core
-5051 - oauth2
-8761 - registre eureka
-5432 - postgresSQL  
-80   - front-end aplication
-8080 - front-end aplication
+the ports listed below must not be used for the application to deploy correctly<br />
+<br />
+8765 - gateway<br />
+5055 - core<br />
+5051 - oauth2<br />
+8761 - registre eureka<br />
+5432 - postgresSQL  <br />
+80   - front-end aplication<br />
+8080 - front-end aplication<br />
 
 
 ## after creating the img system up online in average 3 minutes:
@@ -33,12 +33,12 @@ after uploading the images, two default emails will be produced to access the ap
 
 ## Document of system is Swagger in localhots 8765
 
-go after up system
-[Swagger](http://localhost:8765/core/swagger-ui/index.html)
-
-or in 
-
-[Swagger direct](http://localhost:5055/swagger-ui/index.html#/)
+go after up system<br />
+[Swagger](http://localhost:8765/core/swagger-ui/index.html)<br />
+<br />
+or in <br />
+<br />
+[Swagger direct](http://localhost:5055/swagger-ui/index.html#/)<br />
 
 
 ## Further help
