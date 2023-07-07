@@ -51,6 +51,12 @@ public class TodoService {
 
     public Page<Todo> findPageAllByUserTodo(String token, Integer page, Integer linesPerPage){
         User user = this.oauthService.getUserByToken(token);
+
+        user = loginService.findUserById(user.getId());
+        if(user.getEmail().equals(ADMIN_EMAIL)){
+            return findPageAllTodoOfAdmin(token, page,linesPerPage);
+        }
+
         try {
             Pageable paging = PageRequest.of(page, linesPerPage);
             Page<Todo> todos = todoRepository.findAllByUser(user, paging);

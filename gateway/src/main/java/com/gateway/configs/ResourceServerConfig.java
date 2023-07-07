@@ -27,7 +27,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     private static final String[] PUBLIC = { "/oauth/**", "/actuator/**",
             "/core/actuator/**", "/core/swagger-ui/**", "/core/swagger-ui/index.html", "/core/swagger-resources/**",
-            "/core/v2/api-docs", "/core/webjars/**"  };
+            "/core/v2/api-docs", "/core/webjars/**", "/core/login"  };
 
     private static final String[] OPERATOR = {  "/users/**", "/core/**" };
 

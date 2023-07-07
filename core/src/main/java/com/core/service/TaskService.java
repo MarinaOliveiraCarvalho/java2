@@ -65,6 +65,12 @@ public class TaskService {
     public Page<Task> findAllPageByUserAndTask(String token, UUID todoId, Integer page, Integer linesPerPage){
         User user = this.oauthService.getUserByToken(token);
         try {
+
+            user = loginService.findUserById(user.getId());
+            if(user.getEmail().equals(ADMIN_EMAIL)){
+                return findAllPageByUserAndTaskAdmin(token, todoId, page, linesPerPage);
+            }
+
             Todo todo = this.todoService.findOneTodoOfUser(todoId, user);
 
             Pageable paging = PageRequest.of(page, linesPerPage);
