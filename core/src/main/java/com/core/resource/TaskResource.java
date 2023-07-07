@@ -68,4 +68,11 @@ public class TaskResource {
         return ResponseEntity.ok(taskService.conclusionTaskOfTodo(token, taskDto));
     }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Task> findById(@RequestHeader(value = "Authorization") String token,
+                                         @PathVariable UUID id) {
+        log.info("task findById {}", id);
+        return ResponseEntity.ok(taskService.findById(token, id));
+    }
+
 }

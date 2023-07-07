@@ -180,4 +180,27 @@ public class TaskService {
             throw new RuntimeException("ERROR In set conclusion Task in DB with id: " + taskConclusionDto.getId());
         }
     }
+
+    public Task findById(String token, UUID taskId ){
+        User user = this.oauthService.getUserByToken(token);
+        try {
+            Task task = taskRepository.findById(taskId).orElseThrow(
+                    () -> new NotFoundException("Not Found Task")
+            );
+
+            if(!task.getTodo().getUser().getId().equals(user.getId())){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "ERROR User try get Task of other user in DB with token: " + token);
+            }
+
+            return task;
+        }catch (NotFoundException e){
+            log.error(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "ERROR Not found Task in DB with id: " + taskId);
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw new RuntimeException("ERROR In find Task in DB with id: " + taskId);
+        }
+    }
 }
