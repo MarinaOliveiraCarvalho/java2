@@ -126,7 +126,7 @@ public class TaskService {
             }
 
             task.setName(taskDto.getName());
-            task.setConclusion(task.getConclusion());
+            task.setConclusion(taskDto.getConclusion());
             task.setLastUpdatedDate(LocalDateTime.now());
 
             return taskRepository.save(task);
